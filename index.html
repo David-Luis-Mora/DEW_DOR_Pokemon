@@ -4,29 +4,35 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pokemon Shop</title>
-    <link rel="stylesheet" type="text/css" href="https://www3.gobiernodecanarias.org/educacion/cau_ce/cookies/cookieconsent.min.css"/><script  type="text/javascript" src="https://www3.gobiernodecanarias.org/educacion/cau_ce/cookies/cookieconsent.min.js"></script><script type="text/javascript" src="https://www3.gobiernodecanarias.org/educacion/cau_ce/cookies/cauce_cookie.js"></script><script type="text/javascript" src="https://www3.gobiernodecanarias.org/educacion/cau_ce/estadisticasweb/scripts/piwik-base.js"></script><script type="text/javascript" src="https://www3.gobiernodecanarias.org/educacion/cau_ce/estadisticasweb/scripts/piwik-eforma.js"></script></head>
+        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    </head>
     <body>
         <header id="main-header">
             <div>
                 <h1 id="header-title">Tienda Pokemon</h1>
             </div>
         </header>
+
+        <div class="body">
+            <button id="button" class="button">Let's go</button>
+
+        </div>
         <div>
-            <input type="text" id="filtro"
+            <input type="text" id="filtro" class="input"
                 placeholder="Buscar por tipo...">
-            <input type="text" id="filtro"
+            <input type="text" id="filtro" class="input"
                 placeholder="Buscar por generación...">
-            <input type="text" id="filtro"
+            <input type="text" id="filtro" class="input"
                 placeholder="Buscar por Poder Total...">
         </div>
         <div>
-            <input type="button" id="btn_lista_deseo"
+            <input type="button" id="btn_lista_deseo" class="btnMenu"
                 value="Añadir a lista de deseos" />
-            <input type="button" id="btn_lista_deseo"
+            <input type="button" id="btn_lista_deseo" class="btnMenu"
                 value="Ver lista de deseos" />
-            <input type="button" id="btn_lista_deseo"
+            <input type="button" id="btn_lista_deseo" class="btnMenu"
                 value="Comprar" />
-                <input type="button" id="btn_lista_deseo"
+                <input type="button" id="btn_lista_deseo" class="btnMenu"
                 value="Ver compra" />
         </div>
         <!-- La siguiente lista se puebla con los datos de la API Pokemon -->
@@ -36,7 +42,8 @@
                a los lados del contanier y con Javascript recoger el evento click
                y mostrar siguiente pafinción -->
         <!-- ToDo: Eliminar el punto de lista con CSS -->
-		<div>
+		<div id="listaPokemon" class="listaPokemon">
+            <h2 class="cargandoDatos">Cargando datos......</h2>
 			<ul id="items">
 				<li class>
 					<input type="radio" value="Item 1">
@@ -50,5 +57,6 @@
 				</li>
 			</ul>
 		<div>
+        <script type="module" src="js/script.js"></script>
     </body>
 </html>
