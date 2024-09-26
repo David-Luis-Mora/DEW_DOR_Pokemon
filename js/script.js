@@ -81,7 +81,9 @@ const showPokedex = async () => {
            aux++;
 
         }
-        pokedex.innerHTML += `<div class="card">
+        let random = parseInt(Math.random() * (1-1000+1)+1);
+        console.log(random)
+        pokedex.innerHTML += `<div class="card" onclick="addPokemon()">
                                     <img src="${pokemons[i].pkm_back}">
                                     <img src="${pokemons[i].pkm_front}">
                                     <br>
@@ -90,9 +92,22 @@ const showPokedex = async () => {
                                     <div class="types">
                                         ${tipo1} ${tipo2}
                                     </div>
+                                    <div class="precies">
+                                        ${random * -1}
+                                    </div>
                                 </div>`
     }
 
 
 };
+
+
+
+
+
+
+function addPokemon(){
+    console.log("pokemon comprado")
+
+}
 
