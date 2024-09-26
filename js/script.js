@@ -1,3 +1,10 @@
+
+import Pokemon from "./Pokemon.js";
+
+console.log('Hola');
+
+const pokemons = [];
+
 // Selecciono boton del DOM
 const button = document.querySelector("button");
 
@@ -19,53 +26,73 @@ button.addEventListener("click", ()=> {
                 e.style.visibility = "visible";
             })
 
-    mostrarPOkemon()
+    startPokemon();
 
 
 
 });
 
 
-function mostrarPOkemon(){
-    document.querySelector(".cargandoDatos").style.visibility = "visible";
-    
-    const request = new XMLHttpRequest();
 
-    request.addEventListener("readystatechange", (e) => {
-        if (e.target.readyState === 4){
-            const datos = JSON.parse(e.target.responseText);
-            console.log(datos);
 
+const startPokemon = async () => {
+
+    for(var i = 1; i<=151;i++){
+        try{
+            await fetch("https://pokeapi.co/api/v2/pokemon/"+i+"/")
+            .then(function(result){
+                return result.json();
+
+            })
+            .then(function(data){
+                console.log(data);
+                const pokemon = new Pokemon(data);
+                pushPokemon(pokemon);
+            })
+        } catch (error){
+            alert(`There is am error: ${error}`)
 
         }
-    })
-    // request.open('GET', 'https://jsonplaceholder.typicode.com/users');
-    request.open('GET', 'https://pokeapi.co/api/v2/pokemon/');
-    request.send();
-    
 
-    
-}
+    }
+
+    await showPokedex();
+};
 
 
-// button.addEventListener("click", ()=> {
-//     // alert("Me han pulsado. Hola!");
-//     document.querySelectorAll("#btn_lista_deseo").forEach( (e) => {
-//         // console.log(e)
-//         e.style.visibility = "visible";
-//         // e.visibility = 
-//     })
-// });
+
+function pushPokemon (pokemon){
+    pokemons.push(pokemon);
+};
 
 
-// button.addEventListener("click", ()=> {
-//     // alert("Me han pulsado. Hola!");
-//     document.querySelectorAll(".listaPokemon").forEach( (e) => {
-//         console.log(e)
-//         e.style.visibility = "visible";
-//         // e.visibility = 
-//     })
-// });
+const showPokedex = async () => {
+    // console.log(pokemon)
+    document.querySelector("#pokedex").style.visibility = "visable";
+
+    const pokedex = document.getElementById("pokedex");
+
+    for (var i=0; i< pokemons.length; i++){
+        var aux = 0;
+        while (aux != pokemons[i].pkm_type.length){
+           if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
+           if (aux ==1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
+           else tipo2 = "";
+           aux++;
+
+        }
+        pokedex.innerHTML += `<div class="card">
+                                    <img src="${pokemons[i].pkm_back}">
+                                    <img src="${pokemons[i].pkm_front}">
+                                    <br>
+                                    ${pokemons[i].id}. ${pokemons[i].name}
+                                    <br>
+                                    <div class="types">
+                                        ${tipo1} ${tipo2}
+                                    </div>
+                                </div>`
+    }
 
 
+};
 
