@@ -1,8 +1,6 @@
 
 import Pokemon from "./Pokemon.js";
 
-console.log('Hola');
-
 const pokemons = [];
 
 // Selecciono boton del DOM
@@ -81,6 +79,12 @@ const showPokedex = async () => {
            aux++;
 
         }
+        
+        const card = document.createElement("div");
+        card.classList.add("card")
+        
+
+
         let random = parseInt(Math.random() * (1-1000+1)+1);
         console.log(random)
         pokedex.innerHTML += `<div class="card">
@@ -101,3 +105,6 @@ const showPokedex = async () => {
 
 };
 
+function selected(){
+    alert("Hola")
+}
