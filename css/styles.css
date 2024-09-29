@@ -1,16 +1,15 @@
-input{
-    visibility: hidden;
+.input {
+    visibility:hidden;
 }
 
-.btnMenu{
-    visibility: hidden;
-
+.btnMenu {
+    visibility:hidden;
 }
 
-.listaPokemon{
-    visibility: hidden;
+.listaPokemon {
+    visibility:hidden;
 }
 
-.cargandoDatos{
-    visibility: hidden;
+.cargandoDatos {
+    visibility:hidden;
 }
