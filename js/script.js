@@ -76,6 +76,7 @@ const showPokedex = async () => {
             else tipo2 = "";
             aux++;
         }
+        let numero = Math.floor(Math.random() * 1000) + 1
         pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -85,6 +86,9 @@ const showPokedex = async () => {
                <br>
                <div class="types">
                ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${numero}
                </div>
             </div>`;
     }
