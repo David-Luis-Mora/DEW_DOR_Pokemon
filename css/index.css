@@ -22,7 +22,7 @@ body {
 .button {
     background-color: #ff0000;
     border-radius: 8px;
-    border: none;
+    /* border: none; */
     color: white;
     padding: 15px 32px;
     text-align: center;

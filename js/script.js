@@ -49,6 +49,12 @@ const startPokemon = async () => {
         }
     }
 
+    for (var i = 0; i < pokemons.length; i++) {
+        let numero = Math.floor(Math.random() * 1000) + 1;
+        pokemons[i].precio = numero;
+        
+    }
+
     await showPokedex();
 
 };
@@ -67,7 +73,7 @@ const showPokedex = async () => {
     document.querySelector(".cargandoDatos").style.visibility = "hidden";
     showConsole();
     button.style.visibility = "hidden";
-
+    console.log(pokemons)
     for (var i = 0; i < pokemons.length; i++) {
         var aux = 0;
         while (aux != pokemons[i].pkm_type.length) {
@@ -76,7 +82,7 @@ const showPokedex = async () => {
             else tipo2 = "";
             aux++;
         }
-        let numero = Math.floor(Math.random() * 1000) + 1
+        // let numero = Math.floor(Math.random() * 1000) + 1
         pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -88,8 +94,94 @@ const showPokedex = async () => {
                ${tipo1}  ${tipo2} 
                </div>
                <div class="precio">
-               ${numero}
+               ${pokemons[i].precio} 
                </div>
             </div>`;
     }
 };
+
+
+// David
+
+
+
+function mostrarFiltro(){
+    console.log("Estoy escribiendo en la consola")
+    let letras = document.getElementById("filtro_tipo").value;
+    const pokedex = document.getElementById("pokedex");
+    pokedex.innerHTML = "";
+    for (var i = 0; i < pokemons.length; i++){
+        var aux = 0;
+        while (aux != pokemons[i].pkm_type.length) {
+            if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
+            if (aux == 1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
+            else tipo2 = "";
+            aux++;
+        }
+        if (tipo1.includes(letras)){            
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+            </div>`;
+            continue
+        }
+        if (tipo2.includes(letras)){
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+            </div>`;
+            continue
+        }
+
+    };
+
+    // let lista_pokemon = pokemons.filter(objecto => objecto.pkm_type[0].type.name.toLowerCase().includes(letras.toLowerCase()));
+   
+    // console.log(lista_pokemon);
+    // for (var i = 0; i < lista_pokemon.length; i++) {
+    //     var aux = 0;
+    //     while (aux != lista_pokemon[i].pkm_type.length) {
+    //         if (aux == 0) var tipo1 = lista_pokemon[i].pkm_type[aux].type.name;
+    //         if (aux == 1) var tipo2 = lista_pokemon[i].pkm_type[aux].type.name;
+    //         else tipo2 = "";
+    //         aux++;
+    //     }
+    //     // let numero = Math.floor(Math.random() * 1000) + 1
+        
+    // }
+
+
+
+
+
+
+    
+
+
+}
+
+
+
+const filtro_tipo = document.getElementById("filtro_tipo")
+filtro_tipo.addEventListener('keypress',mostrarFiltro)
+
