@@ -123,23 +123,39 @@ function filtro_tipo(){
     console.log("Estoy escribiendo en la consola")
     let letras = document.getElementById("filtro_tipo").value;
     let weight = parseFloat(document.getElementById("filtro_weight").value);
+    let stats = parseFloat(document.getElementById("filtro_stats"))
     const pokedex = document.getElementById("pokedex");
+    console.log(stats);
+    
+
+
+
     pokedex.innerHTML = "";
     // console.log(weight);
    
     if(isNaN(weight)){
         weight = 999999999
     }
+
+    if (isNaN(stats)){
+        stats = 999999999
+    }
     // console.log(weight);
+    
     for (var i = 0; i < pokemons.length; i++){
         var aux = 0;
+        let acumulador_stats = 0;
         while (aux != pokemons[i].pkm_type.length) {
             if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
             if (aux == 1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
             else tipo2 = "";
             aux++;
         }
-        if (tipo1.includes(letras) && pokemons[i].weight <= weight  ){            
+        for(let j=0; j <pokemons[i].stats.length; j++){
+            acumulador_stats += pokemons[i].stats[j].base_stat;
+
+        }
+        if (tipo1.includes(letras) && pokemons[i].weight <= weight && acumulador_stats <= stats){            
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -155,11 +171,14 @@ function filtro_tipo(){
                </div>
                <div class="weight">
                ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
                </div>
             </div>`;
             continue
         }
-        if (tipo2.includes(letras) && pokemons[i].weight <= weight){
+        if (tipo2.includes(letras) && pokemons[i].weight <= weight && acumulador_stats <= stats){
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -175,6 +194,9 @@ function filtro_tipo(){
                </div>
                <div class="weight">
                ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
                </div>
             </div>`;
             continue
