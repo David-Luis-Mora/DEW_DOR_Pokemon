@@ -100,6 +100,8 @@ const showPokedex = async () => {
                ${pokemons[i].weight} 
                </div>
                
+               
+               
             </div>`;
     }
 };
@@ -111,12 +113,24 @@ const showPokedex = async () => {
                ${pokemons[i].weight} 
                </div> */
 
+/* <div class="stats">
+               ${pokemons[i].stats[0].base_stat} 
+               </div> */
+
+
 
 function filtro_tipo(){
     console.log("Estoy escribiendo en la consola")
     let letras = document.getElementById("filtro_tipo").value;
+    let weight = parseFloat(document.getElementById("filtro_weight").value);
     const pokedex = document.getElementById("pokedex");
     pokedex.innerHTML = "";
+    // console.log(weight);
+   
+    if(isNaN(weight)){
+        weight = 999999999
+    }
+    // console.log(weight);
     for (var i = 0; i < pokemons.length; i++){
         var aux = 0;
         while (aux != pokemons[i].pkm_type.length) {
@@ -125,7 +139,7 @@ function filtro_tipo(){
             else tipo2 = "";
             aux++;
         }
-        if (tipo1.includes(letras)){            
+        if (tipo1.includes(letras) && pokemons[i].weight <= weight  ){            
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -145,7 +159,7 @@ function filtro_tipo(){
             </div>`;
             continue
         }
-        if (tipo2.includes(letras)){
+        if (tipo2.includes(letras) && pokemons[i].weight <= weight){
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -201,8 +215,11 @@ function filtro_weight(){
     const pokedex = document.getElementById("pokedex");
     console.log(num)
     pokedex.innerHTML = "";
+    if(isNaN(num)){
+        num = 999999999
+    }
     for (var i = 0; i < pokemons.length; i++){
-        console.log(pokemons[i].weight)
+        // console.log(pokemons[i].weight)
         var aux = 0;
         while (aux != pokemons[i].pkm_type.length) {
             if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
@@ -257,9 +274,49 @@ function filtro_weight(){
 
 
 
+function filtro_stats(){
+
+}
+
+
+
+
+
+
+
+
+
 const filtro_tipo_ = document.getElementById("filtro_tipo")
 filtro_tipo_.addEventListener('keypress',filtro_tipo)
 
 
 const filtro_weight_ = document.getElementById("filtro_weight")
 filtro_weight_.addEventListener('input',filtro_weight)
+
+
+const filtro_stats_ = document.getElementById("filtro_stats")
+filtro_stats_.addEventListener('input',filtro_stats)
+
+
+
+
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAV9d4KTlk3-75SZ7dWUvDj4InxZ_QuKCc",
+  authDomain: "compra-pokemon-86250.firebaseapp.com",
+  projectId: "compra-pokemon-86250",
+  storageBucket: "compra-pokemon-86250.appspot.com",
+  messagingSenderId: "887503594687",
+  appId: "1:887503594687:web:12672a053bf4d36e55d20a"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
