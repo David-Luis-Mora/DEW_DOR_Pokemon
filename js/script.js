@@ -96,16 +96,23 @@ const showPokedex = async () => {
                <div class="precio">
                ${pokemons[i].precio} 
                </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
+               
             </div>`;
     }
 };
 
 
 // David
+// Acuerdate de quitar los pesos en todo los filtros
+/* <div class="weight">
+               ${pokemons[i].weight} 
+               </div> */
 
 
-
-function mostrarFiltro(){
+function filtro_tipo(){
     console.log("Estoy escribiendo en la consola")
     let letras = document.getElementById("filtro_tipo").value;
     const pokedex = document.getElementById("pokedex");
@@ -132,6 +139,9 @@ function mostrarFiltro(){
                <div class="precio">
                ${pokemons[i].precio} 
                </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
             </div>`;
             continue
         }
@@ -148,6 +158,9 @@ function mostrarFiltro(){
                </div>
                <div class="precio">
                ${pokemons[i].precio} 
+               </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
                </div>
             </div>`;
             continue
@@ -181,7 +194,72 @@ function mostrarFiltro(){
 }
 
 
+function filtro_weight(){
+    // console.log("Estoy escribiendo en la consola")
+    let letras = document.getElementById("filtro_tipo").value;
+    let num = parseFloat(document.getElementById("filtro_weight").value);
+    const pokedex = document.getElementById("pokedex");
+    console.log(num)
+    pokedex.innerHTML = "";
+    for (var i = 0; i < pokemons.length; i++){
+        console.log(pokemons[i].weight)
+        var aux = 0;
+        while (aux != pokemons[i].pkm_type.length) {
+            if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
+            if (aux == 1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
+            else tipo2 = "";
+            aux++;
+        }
+        if (tipo1.includes(letras) && pokemons[i].weight <= num){            
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
+            </div>`;
+            continue
+        }
+        if (tipo2.includes(letras) && pokemons[i].weight <= num){
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
+            </div>`;
+            continue
+        }
 
-const filtro_tipo = document.getElementById("filtro_tipo")
-filtro_tipo.addEventListener('keypress',mostrarFiltro)
+    };
 
+}
+
+
+
+const filtro_tipo_ = document.getElementById("filtro_tipo")
+filtro_tipo_.addEventListener('keypress',filtro_tipo)
+
+
+const filtro_weight_ = document.getElementById("filtro_weight")
+filtro_weight_.addEventListener('input',filtro_weight)
