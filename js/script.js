@@ -83,6 +83,8 @@ const showPokedex = async () => {
             aux++;
         }
         // let numero = Math.floor(Math.random() * 1000) + 1
+
+        //
         pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -123,7 +125,7 @@ function filtro_tipo(){
     console.log("Estoy escribiendo en la consola")
     let letras = document.getElementById("filtro_tipo").value;
     let weight = parseFloat(document.getElementById("filtro_weight").value);
-    let stats = parseFloat(document.getElementById("filtro_stats"))
+    let stats = parseFloat(document.getElementById("filtro_stats").value)
     const pokedex = document.getElementById("pokedex");
     console.log(stats);
     
@@ -234,22 +236,33 @@ function filtro_weight(){
     // console.log("Estoy escribiendo en la consola")
     let letras = document.getElementById("filtro_tipo").value;
     let num = parseFloat(document.getElementById("filtro_weight").value);
+    let stats =  parseFloat(document.getElementById("filtro_stats").value)
     const pokedex = document.getElementById("pokedex");
     console.log(num)
     pokedex.innerHTML = "";
     if(isNaN(num)){
         num = 999999999
     }
+
+    if (isNaN(stats)){
+        stats = 999999999
+    }
+
     for (var i = 0; i < pokemons.length; i++){
         // console.log(pokemons[i].weight)
         var aux = 0;
+        let acumulador_stats = 0;
         while (aux != pokemons[i].pkm_type.length) {
             if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
             if (aux == 1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
             else tipo2 = "";
             aux++;
         }
-        if (tipo1.includes(letras) && pokemons[i].weight <= num){            
+        for(let j=0; j <pokemons[i].stats.length; j++){
+            acumulador_stats += pokemons[i].stats[j].base_stat;
+
+        }
+        if (tipo1.includes(letras) && pokemons[i].weight <= num && acumulador_stats <= stats){            
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -265,11 +278,14 @@ function filtro_weight(){
                </div>
                <div class="weight">
                ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
                </div>
             </div>`;
             continue
         }
-        if (tipo2.includes(letras) && pokemons[i].weight <= num){
+        if (tipo2.includes(letras) && pokemons[i].weight <= num && acumulador_stats <= stats){
             pokedex.innerHTML += `
             <div class="card">
                <img src="${pokemons[i].pkm_back}">
@@ -285,6 +301,9 @@ function filtro_weight(){
                </div>
                <div class="weight">
                ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
                </div>
             </div>`;
             continue
@@ -297,15 +316,85 @@ function filtro_weight(){
 
 
 function filtro_stats(){
+    // console.log("Estoy escribiendo en la consola")
+    let letras = document.getElementById("filtro_tipo").value;
+    let num = parseFloat(document.getElementById("filtro_weight").value);
+    let stats =  parseFloat(document.getElementById("filtro_stats").value)
+    const pokedex = document.getElementById("pokedex");
+    console.log(num)
+    pokedex.innerHTML = "";
+    if(isNaN(num)){
+        num = 999999999
+    }
+
+    if (isNaN(stats)){
+        stats = 999999999
+    }
+
+    for (var i = 0; i < pokemons.length; i++){
+        // console.log(pokemons[i].weight)
+        var aux = 0;
+        let acumulador_stats = 0;
+        while (aux != pokemons[i].pkm_type.length) {
+            if (aux == 0) var tipo1 = pokemons[i].pkm_type[aux].type.name;
+            if (aux == 1) var tipo2 = pokemons[i].pkm_type[aux].type.name;
+            else tipo2 = "";
+            aux++;
+        }
+        for(let j=0; j <pokemons[i].stats.length; j++){
+            acumulador_stats += pokemons[i].stats[j].base_stat;
+
+        }
+        if (tipo1.includes(letras) && pokemons[i].weight <= num && acumulador_stats <= stats){            
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
+               </div>
+            </div>`;
+            continue
+        }
+        if (tipo2.includes(letras) && pokemons[i].weight <= num && acumulador_stats <= stats){
+            pokedex.innerHTML += `
+            <div class="card">
+               <img src="${pokemons[i].pkm_back}">
+               <img src="${pokemons[i].pkm_front}">
+               <br>
+               ${pokemons[i].id}. ${pokemons[i].name}
+               <br>
+               <div class="types">
+               ${tipo1}  ${tipo2} 
+               </div>
+               <div class="precio">
+               ${pokemons[i].precio} 
+               </div>
+               <div class="weight">
+               ${pokemons[i].weight} 
+               </div>
+               <div class="stats">
+               ${acumulador_stats} 
+               </div>
+            </div>`;
+            continue
+        }
+
+    };
 
 }
-
-
-
-
-
-
-
 
 
 const filtro_tipo_ = document.getElementById("filtro_tipo")
@@ -323,22 +412,46 @@ filtro_stats_.addEventListener('input',filtro_stats)
 
 
 
+function selectCard(){
+    console.log("He seleciona una carta")
+}
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAV9d4KTlk3-75SZ7dWUvDj4InxZ_QuKCc",
-  authDomain: "compra-pokemon-86250.firebaseapp.com",
-  projectId: "compra-pokemon-86250",
-  storageBucket: "compra-pokemon-86250.appspot.com",
-  messagingSenderId: "887503594687",
-  appId: "1:887503594687:web:12672a053bf4d36e55d20a"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const cards = document.querySelectorAll('card');
+cards.forEach(card => {
+    card.addEventListener('click', selectCard);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAV9d4KTlk3-75SZ7dWUvDj4InxZ_QuKCc",
+//   authDomain: "compra-pokemon-86250.firebaseapp.com",
+//   projectId: "compra-pokemon-86250",
+//   storageBucket: "compra-pokemon-86250.appspot.com",
+//   messagingSenderId: "887503594687",
+//   appId: "1:887503594687:web:12672a053bf4d36e55d20a"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
 
