@@ -48,6 +48,7 @@ body {
     border-radius: 5px;
     background-image: linear-gradient(rgb(88, 88, 88), rgb(255, 255, 255));
     text-align: center;
+
 }
 
 .card:hover img {
@@ -71,3 +72,5 @@ body {
     font: bold;
     background-image: linear-gradient(rgb(248, 247, 169), rgb(255, 238, 0));
 }
+
+

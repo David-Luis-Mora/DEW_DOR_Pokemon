@@ -63,6 +63,39 @@ function pushPokemon(pokemon) {
     pokemons.push(pokemon);
 }
 
+
+// Función que maneja la selección de cartas
+const selectPokemon = (event) => {
+    const card = event.currentTarget;
+    const pokemonId = card.getAttribute('data-pokemon-id');
+    console.log("he selecionado un pokemon")
+
+    // card.classList.add('seleccionado');
+
+    // Comprobar si el Pokémon ya está en la lista de seleccionados
+    // if (selectedPokemons.includes(pokemonId)) {
+    //     // Si ya está seleccionado, desmarcar y quitar de la lista
+    //     selectedPokemons = selectedPokemons.filter(id => id !== pokemonId);
+    //     card.classList.remove('selected');
+    // } else {
+    //     // Si no está seleccionado, marcar y añadir a la lista
+    //     selectedPokemons.push(pokemonId);
+    //     card.classList.add('selected');
+    // }
+};
+
+
+// // Función para añadir los Pokémon seleccionados a la lista de deseos
+// const addToWishlist = () => {
+//     if (selectedPokemons.length === 0) {
+//         alert("No has seleccionado ningún Pokémon.");
+//         return;
+//     }
+//     alert(`Has añadido ${selectedPokemons.length} Pokémon a tu lista de deseos.`);
+// };
+
+
+
 const showPokedex = async () => {
     //console.log(pokemons);
     // Hago visible la lista
@@ -86,7 +119,7 @@ const showPokedex = async () => {
 
         //
         pokedex.innerHTML += `
-            <div class="card">
+            <div class="card" data-pokemon-id="${pokemons[i].id}>
                <img src="${pokemons[i].pkm_back}">
                <img src="${pokemons[i].pkm_front}">
                <br>
@@ -105,8 +138,18 @@ const showPokedex = async () => {
                
                
             </div>`;
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', selectPokemon);
+        });
+
+        
     }
 };
+
+
+
+
 
 
 // David
@@ -205,6 +248,11 @@ function filtro_tipo(){
         }
 
     };
+    const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', selectPokemon);
+        });
+
 
     // let lista_pokemon = pokemons.filter(objecto => objecto.pkm_type[0].type.name.toLowerCase().includes(letras.toLowerCase()));
    
@@ -412,17 +460,27 @@ filtro_stats_.addEventListener('input',filtro_stats)
 
 
 
-function selectCard(){
-    console.log("He seleciona una carta")
-}
 
 
 
-const cards = document.querySelectorAll('card');
-cards.forEach(card => {
-    card.addEventListener('click', selectCard);
-});
 
+// function selectCard(){
+//     console.log("He seleciona una carta")
+// }
+
+
+
+// const cards = document.querySelectorAll('card');
+// cards.forEach(card => {
+//     card.addEventListener('click', selectCard);
+// });
+
+
+
+// const cards = document.querySelectorAll('.card');
+//         cards.forEach(card => {
+//             card.addEventListener('click', selectPokemon);
+//         });
 
 
 
